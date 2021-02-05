@@ -1,0 +1,33 @@
+-- Problem 1:
+removeChar int str = if (null str) then "Error. Null string."                                                       -- Accounting for potential empty string >:(
+                     else (reverse (substringHead str "" 0 int)) ++ (substringTail str "" (int + 1) (length str))   -- Substring the left substring, then reverse, add to the substring of the right substring
+
+substringHead toSub newStr start end = if (start == end) then newStr                                                -- If the start is equal to the end, return the string
+                                else  substringHead (tail toSub) ((head toSub):newStr) start (end - 1)              -- Else remove the head, add the head to the new string, decrement end, repeat 
+
+substringTail toSub newStr start end = if (start == end) then newStr                                                -- If the start is equal to the end, return the string
+                                else substringTail (init toSub) ((last toSub):newStr) start (end - 1)               -- Else remove the last, add the last to the new string, decrement end, repeat
+
+-- Problem 2:
+removeChar2 str =   if (null str) then "Error. Null string."                                                        -- Accounting for potential empty string >:(
+                    else removeChar 2 str                                                                           -- Otherwise, call removeChar of the index 2 char, on the string
+
+-- Problem 3:
+fibbTail list n =   if (n <= 1) then (reverse [0..1])                                                               -- If the user wants either the first or "zero'th" fibb number give them [1,0]
+                    else fibbHelp (reverse [0..1]) 1 n                                                              -- Call fibbHelp on [1,0] starting at 1 going until the n'th fibb number
+                    
+fibbHelp help_list index int = if (index == int) then help_list                                                     -- If the index (current num) is equal to the int (num of fibb's) return the list
+                                else fibbHelp ((head help_list) + (head (tail help_list)):help_list) (index + 1) int-- Else add the first two items, append it to help_list, increment index, and repeat
+
+--Problem 4:
+fibb int = fibbTail [] int                                                                                          -- Calling fibbTail with the int passed in
+
+--Output
+
+--main = print(removeChar 9 "Hello World")
+
+--main = print(removeChar2 "Hello World")
+
+--main = print(fibbTail [] 3)
+
+--main = print(fibb 6)
